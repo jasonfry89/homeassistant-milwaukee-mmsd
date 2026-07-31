@@ -1,0 +1,17 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Only one instance of the MMSD integration is allowed"
+        },
+        "error": {
+            "cannot_connect": "Cannot connect to the Milwaukee MMSD website"
+        },
+        "step": {
+            "user": {
+                "data": {
+
+                }
+            }
+        }
+    }
+}
