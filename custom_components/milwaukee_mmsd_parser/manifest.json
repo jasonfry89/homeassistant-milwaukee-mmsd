@@ -1,8 +1,6 @@
 {
   "domain": "milwaukee_mmsd_parser",
   "name": "Milwaukee Metropolitan Sewerage District",
-  "version": "0.1.0",
-  "issue_tracker": "https://github.com/jasonfry89/homeassistant-milwaukee-mmsd/issues",
   "codeowners": [
     "@jasonfry89"
   ],
@@ -12,10 +10,12 @@
   "homekit": {},
   "integration_type": "service",
   "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/jasonfry89/homeassistant-milwaukee-mmsd/issues",
   "quality_scale": "bronze",
   "requirements": [
     "milwaukee-mmsd-parser==0.1.4"
   ],
   "ssdp": [],
+  "version": "0.1.0",
   "zeroconf": []
 }
