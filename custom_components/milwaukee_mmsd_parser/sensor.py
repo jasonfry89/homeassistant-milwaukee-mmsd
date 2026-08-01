@@ -47,7 +47,6 @@ async def async_setup_entry(
         config: MilwaukeeMMSDConfigEntry,
         async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    _LOGGER.error(f"MMSD data")
     coordinator = config.runtime_data.coordinator
     sensors = [
         MilwaukeeMMSDSensor(
@@ -97,7 +96,6 @@ class MilwaukeeMMSDSensor(CoordinatorEntity[MilwaukeeMMSDCoordinator], SensorEnt
     @property
     @override
     def native_value(self) -> int | float | bool:
-        _LOGGER.info("native_value called for MMSD capacity")
         if self.entity_description.key == "maximum capacity":
             return self._facility.maximum_million_gallons * 1_000_000
         elif self.entity_description.key == "current usage":

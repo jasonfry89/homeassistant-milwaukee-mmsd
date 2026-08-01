@@ -2,12 +2,15 @@
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
+from homeassistant.helpers import config_validation as cv
 
 from .const import DOMAIN
 from homeassistant.const import Platform
 from .coordinator import MilwaukeeMMSDConfigEntry, MilwaukeeMMSDCoordinator, MilwaukeeMMSDRuntimeData
 
 PLATFORMS = [Platform.SENSOR]
+
+CONFIG_SCHEMA = cv.empty_config_schema(DOMAIN)
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:

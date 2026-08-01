@@ -35,7 +35,6 @@ class MilwaukeeMMSDCoordinator(DataUpdateCoordinator[MilwaukeeMMSDData]):
     @override
     async def _async_update_data(self) -> MilwaukeeMMSDData:
         try:
-            _LOGGER.info(f"Gathering MMSD facilities")
             facilities = await get_facilities()
             return MilwaukeeMMSDData(facilities=facilities)
         except Exception as e:
