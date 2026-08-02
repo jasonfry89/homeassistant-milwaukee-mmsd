@@ -8,13 +8,17 @@ from .const import DOMAIN
 from homeassistant.const import Platform
 from .coordinator import MilwaukeeMMSDConfigEntry, MilwaukeeMMSDCoordinator, MilwaukeeMMSDRuntimeData
 
-PLATFORMS = [Platform.SENSOR]
+PLATFORMS = [
+    Platform.BINARY_SENSOR,
+    Platform.SENSOR
+]
 
 CONFIG_SCHEMA = cv.empty_config_schema(DOMAIN)
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     return True
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: MilwaukeeMMSDConfigEntry) -> bool:
     coordinator = MilwaukeeMMSDCoordinator(hass, entry)

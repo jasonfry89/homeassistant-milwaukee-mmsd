@@ -1,16 +1,16 @@
 import logging
 from typing import override
 
-from milwaukee_mmsd_parser import MMSDFacilityInformation
+from milwaukee_mmsd_parser import MMSDFacility
 
-from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.const import UnitOfRatio, UnitOfVolume
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorEntityDescription
+from homeassistant.const import UnitOfRatio, UnitOfVolume
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from .const import DOMAIN, SHORT_NAME, API_NAME
 from .coordinator import MilwaukeeMMSDCoordinator, MilwaukeeMMSDConfigEntry
-from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -34,10 +34,6 @@ SENSOR_TYPES = [
         native_unit_of_measurement=UnitOfRatio.PERCENTAGE,
         icon="mdi:percent",
         suggested_display_precision=2,
-    ),
-    SensorEntityDescription(
-        key="is full",
-        icon="mdi:water-alert",
     ),
 ]
 
@@ -79,12 +75,12 @@ class MilwaukeeMMSDSensor(CoordinatorEntity[MilwaukeeMMSDCoordinator], SensorEnt
         return DeviceInfo(
             identifiers={(DOMAIN, f"{self._facility_name}")},
             name=f"{self._facility_name}",
-            manufacturer="MMSD",
-            model="Facility API",
+            manufacturer=SHORT_NAME,
+            model=API_NAME,
         )
 
     @property
-    def _facility(self) -> MMSDFacilityInformation:
+    def _facility(self) -> MMSDFacility:
         facilities = [facility for facility in self.coordinator.data.facilities if facility.name == self._facility_name]
         if not facilities:
             raise Exception(f"_facility - Missing facility for {self._facility_name}")
@@ -102,7 +98,5 @@ class MilwaukeeMMSDSensor(CoordinatorEntity[MilwaukeeMMSDCoordinator], SensorEnt
             return self._facility.current_million_gallons * 1_000_000
         elif self.entity_description.key == "percent used":
             return 100.0 * self._facility.current_million_gallons / self._facility.maximum_million_gallons
-        elif self.entity_description.key == "is full":
-            return self._facility.current_million_gallons >= self._facility.maximum_million_gallons
         else:
             raise Exception(f"native_value - Invalid key: {self.entity_description.key}")
