@@ -19,3 +19,24 @@ Navigate to `Integrations`
 Press `Add integration`
 
 Search for `Milwaukee Metropolitan Sewerage District`
+
+### Developing
+
+Follow the instructions [here](https://developers.home-assistant.io/docs/development_environment/) to setup a local Home Assistant development environment
+
+Modify `$YOUR_HA_DEV_ENV/homeassistant/generated/integrations.json` to include:
+
+```
+"milwaukee_mmsd_parser": {
+  "name": "Milwaukee Metropolitan Sewerage District",
+  "integration_type": "service",
+  "config_flow": true,
+  "iot_class": "cloud_polling"
+},
+```
+
+Create a symbolic link to this repository:
+
+`ln -s $THIS_REPO/custom_components/milwaukee_mmsd_parser $YOUR_HA_DEV_ENV/homeassistant/components/milwaukee_mmsd_parser`
+
+This approach allows you to test your code in the development environment and get syntax highlighting
